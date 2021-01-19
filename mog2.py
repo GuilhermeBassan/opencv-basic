@@ -2,12 +2,7 @@ import numpy as np
 import time
 import cv2
 
-cap = cv2.VideoCapture('video1.mp4')
-#cap = cv2.VideoCapture('video2.mp4')
-#cap = cv2.VideoCapture('video3.mp4')
-#cap = cv2.VideoCapture('video4.mp4')
-#cap = cv2.VideoCapture('video5.mp4')
-#cap = cv2.VideoCapture('video6.mp4')
+cap = cv2.VideoCapture(0)
 
 ## Creates a MOG2 background subtractor
 subtractor = cv2.createBackgroundSubtractorMOG2(
@@ -20,43 +15,43 @@ subtractor = cv2.createBackgroundSubtractorMOG2(
 # The shadow is detected specifying how many times the pixel is
 # darker than its previous value. 1/2=0.5 -> will detect pixels
 # # 2x darker as shadows
-subtractor.setShadowThreshold(0.01) # (def 0.5)
-print(f"Shadow threshold: : {subtractor.getShadowThreshold()}")
+subtractor.setShadowThreshold(0.5) # (def 0.5)
+#print(f"Shadow threshold: : {subtractor.getShadowThreshold()}")
 
 ## Sets the shadow value
 # The bg subtractor will change the value of pixels detected
 # as shadows to the value defined here
-subtractor.setShadowValue(0)    # (def 127)
-print(f"Shadow Value: {subtractor.getShadowValue()}")
+subtractor.setShadowValue(127)    # (def 127)
+#print(f"Shadow Value: {subtractor.getShadowValue()}")
 
 ## Sets the background ratio
 # If a pixel is semi-constant for BackgroudRatio*history frames
 # it is defined as center of a new component
 subtractor.setBackgroundRatio(0.9) # (def 0.9)
-print(f"Background ratio: {subtractor.getBackgroundRatio()}")
+#print(f"Background ratio: {subtractor.getBackgroundRatio()}")
 
 ## Set the complexity reduction threshold
 # Set the number of samples needed to accept that 
 # the component exists
 subtractor.setComplexityReductionThreshold(0.05)   # (def 0.05)
-print(f"Complexity: {subtractor.getComplexityReductionThreshold()}")
+#print(f"Complexity: {subtractor.getComplexityReductionThreshold()}")
 
 ## Initial variance of each gaussian component
 subtractor.setVarInit(15)    # (def 15)
-print(f"Initial variance: {subtractor.getVarInit()}")
+#print(f"Initial variance: {subtractor.getVarInit()}")
 
 ## Max variance of each gaussian component
 subtractor.setVarMax(75) # (def 75)
-print(f"Maximum variance: {subtractor.getVarMax()}")
+#print(f"Maximum variance: {subtractor.getVarMax()}")
 
 ## Min variance of each gaussian component
 subtractor.setVarMin(4) # (def 4)
-print(f"Minimum variance: {subtractor.getVarMin()}")
+#print(f"Minimum variance: {subtractor.getVarMin()}")
 
 ## Variance threshold for the pixel-model match
 # Decide if the sample is well described by the background model.
 subtractor.setVarThreshold(10)   # (def 10)
-print(f"Threshhold variance: {subtractor.getVarThreshold()}")
+#print(f"Threshhold variance: {subtractor.getVarThreshold()}")
 
 ## Variance threshold for the pixel-model match used for new
 # mixture component generation
@@ -65,24 +60,12 @@ print(f"Threshhold variance: {subtractor.getVarThreshold()}")
 # as a new component. A smaller value generates more components. A larger
 # number may generate a small number  of components but they can grow
 # too large.
-subtractor.setVarThresholdGen(10)    # (def 9)
-print(f"Threshhold generation variance: {subtractor.getVarThresholdGen()}")
+subtractor.setVarThresholdGen(9)    # (def 9)
+#print(f"Threshhold generation variance: {subtractor.getVarThresholdGen()}")
 
 while(1):
-    ## Capture user input
-    k=cv2.waitKey(30)&0xFF
-    
-    ## Stop execution case esc
-    if k == 27:
-        break
-    
-    ## Pause execution while space
-    while k==32:
-        time.sleep(1)
-        k=cv2.waitKey(30)&0xFF
-
     ## Wait 0.1 sec
-    time.sleep(0.1)
+    #time.sleep(0.1)
 
     ## Read frame from video
     ret, frame = cap.read()
@@ -94,9 +77,9 @@ while(1):
     blurred = cv2.GaussianBlur(
         src=frame,                      # Source image
         ksize=(35,35),                  # Kernel size, must be odd positive number (def (1,1))
-        sigmaX=5,                       # Kernel deviation in X direction (def 0)
-        sigmaY=5,                       # Kernel deviation in Y direction (def 0)
-        borderType=cv2.BORDER_CONSTANT  # Pixel extrapolation method (def BORDER_DEFAULT)
+        sigmaX=0,                       # Kernel deviation in X direction (def 0)
+        sigmaY=0,                       # Kernel deviation in Y direction (def 0)
+        borderType=cv2.BORDER_DEFAULT  # Pixel extrapolation method (def BORDER_DEFAULT)
         )
     
     ## Apply background subtractor
@@ -105,7 +88,14 @@ while(1):
     ## Display the frames
     hstack=np.hstack((frame,bgmask))
     cv2.imshow("Frame",hstack)
+
+    ## Capture user input
+    k=cv2.waitKey(30)&0xFF
     
+    ## Stop execution case esc
+    if k == 27:
+        break
+        
 ## Release the capture device and
 # closes all windows
 cap.release()
