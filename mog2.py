@@ -1,5 +1,4 @@
 import numpy as np
-import time
 import cv2
 
 cap = cv2.VideoCapture(0)
@@ -31,7 +30,7 @@ subtractor.setBackgroundRatio(0.9) # (def 0.9)
 #print(f"Background ratio: {subtractor.getBackgroundRatio()}")
 
 ## Set the complexity reduction threshold
-# Set the number of samples needed to accept that 
+# Set the number of samples needed to accept that
 # the component exists
 subtractor.setComplexityReductionThreshold(0.05)   # (def 0.05)
 #print(f"Complexity: {subtractor.getComplexityReductionThreshold()}")
@@ -55,7 +54,7 @@ subtractor.setVarThreshold(10)   # (def 10)
 
 ## Variance threshold for the pixel-model match used for new
 # mixture component generation
-# Helps decide if a sample is close to the existing components. If a 
+# Helps decide if a sample is close to the existing components. If a
 # pixel is not close to any component, is considered foreground or added
 # as a new component. A smaller value generates more components. A larger
 # number may generate a small number  of components but they can grow
@@ -63,7 +62,7 @@ subtractor.setVarThreshold(10)   # (def 10)
 subtractor.setVarThresholdGen(9)    # (def 9)
 #print(f"Threshhold generation variance: {subtractor.getVarThresholdGen()}")
 
-while(1):
+while True:
     ## Wait 0.1 sec
     #time.sleep(0.1)
 
@@ -72,7 +71,7 @@ while(1):
 
     ## Convert frame to black and white
     frame=cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
-    
+
     ## Blurs an image with a gaussian filter
     blurred = cv2.GaussianBlur(
         src=frame,                      # Source image
@@ -81,7 +80,7 @@ while(1):
         sigmaY=0,                       # Kernel deviation in Y direction (def 0)
         borderType=cv2.BORDER_DEFAULT  # Pixel extrapolation method (def BORDER_DEFAULT)
         )
-    
+
     ## Apply background subtractor
     bgmask = subtractor.apply(blurred)
 
@@ -91,11 +90,11 @@ while(1):
 
     ## Capture user input
     k=cv2.waitKey(30)&0xFF
-    
+
     ## Stop execution case esc
     if k == 27:
         break
-        
+
 ## Release the capture device and
 # closes all windows
 cap.release()
