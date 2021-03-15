@@ -1,7 +1,11 @@
 from threading import Thread, Lock
 import cv2
 
+
+
+## Initializes the threaded camera stream
 class WebcamVideoStream :
+    
     def __init__(self, src = 0, width = 320, height = 240) :
         self.stream = cv2.VideoCapture(src)
         self.stream.set(cv2.CAP_PROP_FRAME_WIDTH, width)

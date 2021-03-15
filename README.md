@@ -1,38 +1,38 @@
 # opencv-basic
-
 Collection of basic OpenCV applications.
 
-## main.py
+## display_video.py
 The simplest opencv application, it captures video from th camera and displays it.
 
 ## mog2.py
 Uses a background subtraction technique to detect moving objects.
 
-## haar.py
+## haar_cascade.py
 Uses the haar cascade algorythm to detect faces.
 
-### To clear the pylint errors:
-Run this command at the terminal:
+## save_video.py
+Captures the video from a camera and saves it to a file.
 
-> pylint --generate-rcfile > .pylintrc
+## treading_display.py
+Display the video from the camera using threading.
 
-At the beginning of the generated .pylintrc file you will see:
+## treading_record.py (TODO)
+Records the capture from the camera using threading.
 
-> \# A comma-separated list of package or module names from where C extensions may
-> \# be loaded. Extensions are loading into the active Python interpreter and may
-> \# run arbitrary code.
-> extension-pkg-whitelist=
+### Dependencies:
+The projects were scripted with Python 3.8.5 and the following packages:
 
-Add cv2 so you end up with:
-
-> \# A comma-separated list of package or module names from where C extensions may
-> \# be loaded. Extensions are loading into the active Python interpreter and may
-> \# run arbitrary code.
-> extension-pkg-whitelist=cv2
-
-And add this setting to the error messages:
-> [MASTER]
-> disable=
->     C0114, # missing-module-docstring
-
-Save the file. The lint errors should disappear.
+~~~
+astroid==2.4.2
+isort==5.6.4
+lazy-object-proxy==1.4.3
+mccabe==0.6.1
+numpy==1.19.4
+opencv-python==4.4.0.46
+pkg-resources==0.0.0
+pylint==2.6.0
+six==1.15.0
+toml==0.10.2
+typed-ast==1.4.1
+wrapt==1.12.1
+~~~
