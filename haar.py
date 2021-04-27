@@ -4,10 +4,10 @@ import numpy as np
 import cv2
 
 ## Import the face cascade classifier
-face_cascade=cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+face_cascade=cv2.CascadeClassifier("haar_cascade/haarcascade_frontalface_default.xml")
 
 ## Import the face cascade classifier
-eyes_cascade=cv2.CascadeClassifier("haarcascade_eye.xml")
+eyes_cascade=cv2.CascadeClassifier("haar_cascade/haarcascade_eye.xml")
 
 ## Start video capture with the camera
 # The argument may be changed for

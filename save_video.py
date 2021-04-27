@@ -9,14 +9,14 @@ def main():
 
     ## If the camera is inaccessible, quits
     #  the execution
-    if not cap.isOpened():
-        print("Erro ao acessar a câmera")
-        exit(0)
+    #if not cap.isOpened():
+    #    print("Erro ao acessar a câmera")
+    #    exit(0)
 
     ## Sets the properties of the camera
-    cap.set(3, 1080)
-    cap.set(4, 720)
-    cap.set(5, 15)
+    cap.set(3, 480)
+    cap.set(4, 360)
+    cap.set(5, 10)
 
     ## Defines the width and height of
     #  the video based on the properties of

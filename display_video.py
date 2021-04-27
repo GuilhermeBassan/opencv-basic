@@ -3,7 +3,8 @@ import cv2
 ## Start video capture with the camera
 # The argument may be changed for
 # a path with a video
-cap = cv2.VideoCapture(0)
+#cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture("captura2.avi")
 
 ## Infinite loop
 while True:
